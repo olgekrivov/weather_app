@@ -1085,6 +1085,10 @@ body.ie ._ibg img {
   margin: 30px;
 }
 
+.form-current__btn span:hover {
+  color: #0d3b69;
+}
+
 .current {
   position: relative;
 }
@@ -1232,6 +1236,11 @@ body.ie ._ibg img {
 
 .forecast__image {
   padding: 0 8px;
+}
+
+.forecast__image img {
+  max-width: 250px;
+  max-height: 250px;
 }
 
 .forecast__temperature {
@@ -1408,6 +1417,7 @@ body.ie ._ibg img {
     -ms-flex-wrap: wrap;
         flex-wrap: wrap;
     margin: 0;
+    margin: 0 -10px;
   }
 
   .details__column {
@@ -1416,6 +1426,7 @@ body.ie ._ibg img {
             flex: 1 1 auto;
     padding: 0;
     margin: 0px -15px 40px -15px;
+    padding: 0 10px;
   }
 
   .details__item_m {

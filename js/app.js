@@ -16,100 +16,61 @@ $(document).on('click', '.radiobuttons__item', function(event) {
 
 
 
-let change_city = document.querySelector('.current__change-city');
-let form_current = document.querySelector('.form-current');
-change_city.addEventListener("click", function(e) {
-	form_current.classList.toggle('_active');
-});
+
+
+//========================================================================================================================================================
+
+let form = document.querySelector('.form-current');
+document.querySelector('.current__change-city').onclick = changeCity; //отслеживание клика по ссылке выбора города
+function changeCity(){ 
+	form.classList.toggle('_active');
+}
 
 document.documentElement.addEventListener("click", function(e) {
 	if(!e.target.closest('.current__city-location')){
-		form_current.classList.remove('_active');
+		form.classList.remove('_active');
 	}
 }); 
-// 
-// function check() {
-// 	var x = document.getElementById('.example').value;
-// }
-
-//========================================================================================================================================================
 
 
-// let input = document.getElementById('exemple');
-// let form = document.querySelector('.form-current');
+document.querySelector('.form-current__btn').onclick = myClick; // отслеживание клика по кнопке и если кликнули, то запуcкается функция myClick
+// document.querySelector('.form__button').addEventListener('click',myClick);  // отслеживание клика по кнопке
 
-// console.log(input.value);
-//${input.value}
-const key = '7f4f83dafd5fb9333fcd3253b8b56eda';
+function myClick(){
+	form.classList.remove('_active');
+	// console.log('work');
+	let inp = document.querySelector('.form-input').value; // получение значения input
+	console.log(inp); //проверка получения данных
+	// document.querySelector('.city-weather__name').innerHTML = inp; 
 
-//========================================================================================================================================================
 
-// fetch(`http://api.openweathermap.org/data/2.5/weather?q=сочи&appid=7f4f83dafd5fb9333fcd3253b8b56eda&lang=ru`)
-function weatherForecast(city) {
-	fetch('https://api.openweathermap.org/data/2.5/weather?q=' + city+ '&appid=' + key+'&lang=ru')
-		.then(function (resp) { return resp.json() }) // Convert data to json
-		.then(function (data) {
-			console.log(data);
-			document.querySelector('.current__city').textContent = data.name;
-			document.querySelector('.forecast__temperature').innerHTML = Math.round(data.main.temp - 273) + '&deg';
+	let url = 'http://api.openweathermap.org/data/2.5/weather'; // сайт API
+	let key = '7f4f83dafd5fb9333fcd3253b8b56eda'; // ключ API
+	// let urlFetch = `${url}?q=${inp}&appid=${key}&lang=ru`;
 
-			document.querySelector('.forecast__image').innerHTML = `<img src="img/icons/${data.weather[0]['icon']}.svg">`;
 
-			document.querySelector('.forecast__text').textContent = data.weather[0]['description'];
-			document.querySelector('.details__value_humidity').textContent = data.main.humidity + '%';
-			document.querySelector('.details__value_clouds').textContent = data.clouds.all + '%';
-			document.querySelector('.details__value_wind').textContent = data.wind['speed']+ ' м/c';
-			document.querySelector('.details__value_pressure').textContent =Math.round(data.main.pressure / 1.33) +' мм рт. ст.';
+	//  API запрос на сервер
+	fetch(`${url}?q=${inp}&appid=${key}&lang=ru`)
 
-		} )
-		.catch(function () {
-			// catch  any errors
-		});
+	.then(function (resp) { return resp.json() })
+	.then(function(data){
+		console.log(data); //проверка получения данных
+		document.querySelector('.forecast__temperature').innerHTML = Math.round(data.main.temp - 273) + '&deg';
+		document.querySelector('.current__city').innerHTML = data.name;
+		document.querySelector('.forecast__image').innerHTML = `<img src="img/icons/${data.weather[0]['icon']}.png">`;
+		document.querySelector('.forecast__text').textContent = data.weather[0]['description'];
+		document.querySelector('.details__value_humidity').textContent = data.main.humidity + '%';
+		document.querySelector('.details__value_wind').textContent = data.wind['speed']+ ' м/c';
+		document.querySelector('.details__value_clouds').textContent = data.clouds.all + '%';
+		document.querySelector('.details__value_pressure').textContent =Math.round(data.main.pressure / 1.33) +' мм рт. ст.';
+	})
+
+	.catch(function() {
+
+	});
+
+	
 }
-
-// var celcius = Math.round(parseFloat(d.main.temp)-273.15);
-// var fahrenheit = Math.round(((parseFloat(d.main.temp)-273.15)*1.8)+32);
-
-//Event Listeners on button click
-document.addEventListener("DOMContentLoaded", () => {
-	// Handling button click
-	document.querySelector(".form-current__btn").addEventListener("click", () => {
-		const searchedCity = document.querySelector('.example');
-		console.log(searchedCity.value);
-		if(searchedCity.value){
-			weatherForecast(searchedCity.value);
-		}       
-	}) 
-});
-
-
-
-
-
-
-
-
-
-
-// fetch('http://api.openweathermap.org/data/2.5/weather?q=' + input.value + '&appid=7f4f83dafd5fb9333fcd3253b8b56eda&lang=ru)
-// 	.then(function (resp) { return resp.json() }) // Convert data to json
-// 	.then(function (data) {
-// 		console.log(data);
-// 		document.querySelector('.current__city').textContent = data.name;
-// 		document.querySelector('.forecast__temperature').innerHTML = Math.round(data.main.temp - 273) + '&deg';
-
-// 		document.querySelector('.forecast__image').innerHTML = `<img src="img/icons/${data.weather[0]['icon']}.svg">`;
-
-// 		document.querySelector('.forecast__text').textContent = data.weather[0]['description'];
-// 		document.querySelector('.details__value_humidity').textContent = data.main.humidity + '%';
-// 		document.querySelector('.details__value_clouds').textContent = data.clouds.all + '%';
-// 		document.querySelector('.details__value_wind').textContent = data.wind['speed']+ ' м/c';
-// 		document.querySelector('.details__value_pressure').textContent =Math.round(data.main.pressure / 1.33) +' мм рт. ст.';
-
-// 	} )
-// 	.catch(function () {
-// 		// catch  any errors
-// 	});
 var ua = window.navigator.userAgent;
 var msie = ua.indexOf("MSIE ");
 var isMobile = { Android: function () { return navigator.userAgent.match(/Android/i); }, BlackBerry: function () { return navigator.userAgent.match(/BlackBerry/i); }, iOS: function () { return navigator.userAgent.match(/iPhone|iPad|iPod/i); }, Opera: function () { return navigator.userAgent.match(/Opera Mini/i); }, Windows: function () { return navigator.userAgent.match(/IEMobile/i); }, any: function () { return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows()); } };
