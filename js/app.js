@@ -44,7 +44,7 @@ function myClick(){
 	// document.querySelector('.city-weather__name').innerHTML = inp; 
 
 
-	let url = 'http://api.openweathermap.org/data/2.5/weather'; // сайт API
+	let url = 'https://api.openweathermap.org/data/2.5/weather'; // сайт API
 	let key = '7f4f83dafd5fb9333fcd3253b8b56eda'; // ключ API
 	// let urlFetch = `${url}?q=${inp}&appid=${key}&lang=ru`;
 
